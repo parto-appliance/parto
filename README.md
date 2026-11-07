@@ -82,8 +82,8 @@ For AMD64 use `APPLIANCE_ARCH=amd64 BUILD_VOLUME=standalone-public-amd64`. Keep 
 caches separate from other appliance builds. Docker and a Linux privileged build container are
 required. Builds write local artifacts and do not upload or publish anything.
 
-The 0.13.0 release is staged for review. Download the OVAs and checksum from the
-repository’s release assets.
+Download the OVAs and checksums from the
+[Parto 0.13.0 release](https://github.com/parto-appliance/parto/releases/tag/v0.13.0).
 
 ## Current compatibility
 
