@@ -1,0 +1,26 @@
+# The existing Pi artwork, centered on black without changing its aspect ratio.
+Window.SetBackgroundTopColor(0, 0, 0);
+Window.SetBackgroundBottomColor(0, 0, 0);
+logo.image = Image("splash.png");
+logo.sprite = Sprite();
+logo.width = 0;
+logo.height = 0;
+
+fun refresh_callback () {
+    width = Window.GetWidth();
+    height = Window.GetHeight();
+    if (width != logo.width || height != logo.height) {
+        scale = width / logo.image.GetWidth();
+        if (scale * logo.image.GetHeight() > height) {
+            scale = height / logo.image.GetHeight();
+        }
+        logo.scaled = logo.image.Scale(logo.image.GetWidth() * scale, logo.image.GetHeight() * scale);
+        logo.sprite.SetImage(logo.scaled);
+        logo.sprite.SetX((width - logo.scaled.GetWidth()) / 2);
+        logo.sprite.SetY((height - logo.scaled.GetHeight()) / 2);
+        logo.width = width;
+        logo.height = height;
+    }
+}
+
+Plymouth.SetRefreshFunction(refresh_callback);

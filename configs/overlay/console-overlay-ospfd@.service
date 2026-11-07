@@ -1,0 +1,28 @@
+[Unit]
+Description=Parto dedicated OVERLAY LAN OSPF (%i)
+After=console-overlay-zebra@%i.service
+Requires=console-overlay-zebra@%i.service
+ConditionPathExists=/var/lib/parto-overlay/%i/current/ospfd.conf
+
+[Service]
+Type=simple
+User=frr
+Group=frr
+LoadCredential=ospfd.conf:/var/lib/parto-overlay/%i/current/ospfd.conf
+ExecStart=/usr/lib/frr/ospfd -N csd-%i -P 0 -f ${CREDENTIALS_DIRECTORY}/ospfd.conf
+RuntimeDirectory=frr/csd-%i
+RuntimeDirectoryPreserve=yes
+RuntimeDirectoryMode=0750
+UMask=0027
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_RAW CAP_SYS_ADMIN
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_RAW CAP_SYS_ADMIN
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=strict
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=20

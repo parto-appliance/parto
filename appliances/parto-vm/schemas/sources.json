@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "description": "Unmodified official OVF 1.0 and imported CIM/W3C XML schemas; original notices retained. Network access is disabled during validation.",
+  "schemas": [
+    {
+      "file": "dsp8023_1.0.0.xsd",
+      "url": "https://schemas.dmtf.org/ovf/envelope/1/dsp8023_1.0.0.xsd",
+      "sha256": "a3c5ee4fdf3a5334b041ae8c8c5b5ab82161f712f7f9da085019aef51876f761"
+    },
+    {
+      "file": "CIM_ResourceAllocationSettingData.xsd",
+      "url": "https://schemas.dmtf.org/wbem/wscim/1.0.0/cim-schema/2.19.0+/CIM_ResourceAllocationSettingData.xsd",
+      "sha256": "334e19154e0a2f6071f33253493f5ed5dfedb67e535393f5fabdb2fa4adab15c"
+    },
+    {
+      "file": "CIM_VirtualSystemSettingData.xsd",
+      "url": "https://schemas.dmtf.org/wbem/wscim/1.0.0/cim-schema/2.19.0+/CIM_VirtualSystemSettingData.xsd",
+      "sha256": "d0fe5376c49041fea0119d54068e614b6410fb3cf0a717edd9826f55962d3043"
+    },
+    {
+      "file": "common.xsd",
+      "url": "https://schemas.dmtf.org/wbem/wscim/1/common.xsd",
+      "sha256": "946c1e2c50ea753e2cf3f40cb4a83c319e0d5693c3b017ad3f9811792319d2ee"
+    },
+    {
+      "file": "xml.xsd",
+      "url": "https://www.w3.org/2001/xml.xsd",
+      "sha256": "61960fb3131e38022caad5360e2f33a3382578ab3c80cd58bd74320ede61b20c"
+    }
+  ]
+}

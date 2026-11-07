@@ -1,0 +1,18 @@
+[Unit]
+Description=Restore root-authorized Parto OVERLAY after reboot
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=/etc/parto/overlay/migration.json
+StartLimitIntervalSec=0
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/libexec/console-overlay-restore
+UMask=0077
+TimeoutStartSec=180
+NoNewPrivileges=true
+Restart=on-failure
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target

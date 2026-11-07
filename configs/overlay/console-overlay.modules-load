@@ -1,0 +1,2 @@
+# Keep route-based IPsec interfaces available before OVERLAY boot restoration.
+xfrm_interface

@@ -1,0 +1,8 @@
+#!/bin/sh
+# Install root:root 0755 at /usr/local/libexec/console-overlay only as an
+# explicitly approved root-helper migration. Never point this at BootScript.
+set -eu
+if [ "$#" -ne 1 ]; then exit 64; fi
+case "$1" in status|preflight|apply|disable|guard|credentials-status|credentials-csr|credentials-install) ;; *) exit 64 ;; esac
+exec /usr/bin/env -i PATH=/usr/sbin:/usr/bin:/sbin:/bin LANG=C LC_ALL=C \
+  /usr/bin/python3 -I -c 'import runpy,sys; sys.path.insert(0,"/usr/local/lib/parto-overlay"); runpy.run_path("/usr/local/lib/parto-overlay/overlay_runtime.py",run_name="__main__")' "$1"

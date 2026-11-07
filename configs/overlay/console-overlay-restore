@@ -1,0 +1,6 @@
+#!/bin/sh
+# Private boot helper, root-owned 0755, excluded from sudoers and portal verbs.
+set -eu
+if [ "$#" -ne 0 ] || [ "$(/usr/bin/id -u)" -ne 0 ]; then exit 64; fi
+exec /usr/bin/env -i PATH=/usr/sbin:/usr/bin:/sbin:/bin LANG=C LC_ALL=C \
+  /usr/bin/python3 -I -c 'import runpy,sys; sys.path.insert(0,"/usr/local/lib/parto-overlay"); sys.argv=["console-overlay-restore","restore"]; runpy.run_path("/usr/local/lib/parto-overlay/overlay_runtime.py",run_name="__main__")'

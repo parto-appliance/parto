@@ -1,0 +1,10 @@
+artifacts/
+*.ova
+*.vmdk
+*.vmwarevm/
+*.qcow2
+*.env
+.environmental
+__pycache__/
+
+.DS_Store

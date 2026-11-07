@@ -1,0 +1,26 @@
+[Unit]
+Description=Parto dedicated OVERLAY routed TLS tunnel (%i)
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=/var/lib/parto-overlay/tls/%i/current/openvpn.conf
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/openvpn --config /var/lib/parto-overlay/tls/%i/current/openvpn.conf
+RuntimeDirectory=console-overlay-tls/%i
+RuntimeDirectoryMode=0700
+UMask=0077
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=20
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/run/console-overlay-tls/%i
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_RAW
+DevicePolicy=closed
+DeviceAllow=/dev/net/tun rw
+RestrictAddressFamilies=AF_UNIX AF_INET AF_NETLINK

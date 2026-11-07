@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=OVERLAY Virtual Appliance
+Description=OVERLAY Virtual Appliance boot splash
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/parto
+ScriptFile=/usr/share/plymouth/themes/parto/parto.script

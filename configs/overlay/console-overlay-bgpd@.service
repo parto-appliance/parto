@@ -1,0 +1,29 @@
+[Unit]
+Description=Parto dedicated OVERLAY BGP (%i)
+After=console-overlay-zebra@%i.service console-overlay-charon@%i.service
+Requires=console-overlay-zebra@%i.service
+ConditionPathExists=/var/lib/parto-overlay/%i/current/frr.conf
+
+[Service]
+Type=simple
+User=frr
+Group=frr
+LoadCredential=frr.conf:/var/lib/parto-overlay/%i/current/frr.conf
+ExecStart=/usr/lib/frr/bgpd -N csd-%i -P 0 -f ${CREDENTIALS_DIRECTORY}/frr.conf
+RuntimeDirectory=frr/csd-%i
+RuntimeDirectoryPreserve=yes
+RuntimeDirectoryMode=0750
+UMask=0027
+# FRR 8.4 requests SYS_ADMIN during its startup capability initialization.
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_RAW CAP_NET_BIND_SERVICE CAP_SYS_ADMIN
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_RAW CAP_NET_BIND_SERVICE CAP_SYS_ADMIN
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=strict
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=20

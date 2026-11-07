@@ -1,0 +1,22 @@
+[Unit]
+Description=Validate OVERLAY Virtual Appliance instance identity before credentials start
+DefaultDependencies=no
+After=local-fs.target
+Before=network-pre.target parto-vm-bootstrap.service
+Wants=network-pre.target
+ConditionPathExists=/etc/parto/platform
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 -I /usr/local/lib/parto-vm/vm_identity.py ensure
+RemainAfterExit=yes
+User=root
+Group=root
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ReadWritePaths=/etc/parto /var/lib/parto
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

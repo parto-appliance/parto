@@ -1,0 +1,25 @@
+{
+  "version": "0.13.0",
+  "source": "2d667554327ad5ed9a849383ad43d046a55ba659",
+  "public_published": false,
+  "artifacts": [
+    {
+      "architecture": "arm64",
+      "file": "parto-0.13.0-arm64-vmware-r1.ova",
+      "sha256": "69706cd9ad515a6446d5495c757b2cd3e926a02012e2244e2331eb193d945c4a",
+      "bytes": 505354240,
+      "embedded_manifest": "verified",
+      "vmware_ovf_import": "passed",
+      "import_disk_sector_comparison": "passed"
+    },
+    {
+      "architecture": "amd64",
+      "file": "parto-0.13.0-amd64-vmware-r1.ova",
+      "sha256": "60046b19cdaea408e8b84f612356f344945048f36b39b9cd58cce001d7524aa5",
+      "bytes": 534128640,
+      "embedded_manifest": "verified",
+      "vmware_ovf_import": "passed",
+      "import_disk_sector_comparison": "passed"
+    }
+  ]
+}

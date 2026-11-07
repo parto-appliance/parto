@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Parto</title><link rel="stylesheet" href="/style.css"><script defer src="/app.js"></script></head>
+<body><div class="shell">
+<aside class="sidebar"><div class="brand"><img src="/logo.png" alt=""><strong>PARTO</strong></div><span class="eyebrow">PRIVATE OVERLAY</span>
+<nav id="navigation" hidden aria-label="Appliance pages">
+<button data-tab="monitor" id="monitorNav">Monitor</button><button data-tab="wizard" id="setupNav">Initial setup</button><button data-tab="topology" id="topologyNav">Topology</button><button data-tab="settings" id="settingsNav">Settings</button>
+</nav><p class="sidebarFoot">Local management<br>HTTPS · 8443</p><button id="logout" class="quiet" hidden>Sign out</button></aside>
+<main><p id="notice" role="status" aria-live="polite"></p>
+<section id="login" class="login"><span class="eyebrow">YOUR NETWORK. YOUR CONTROL.</span><h1>Welcome to Parto</h1><p>Sign in with the root password you set on the appliance console.</p><form id="loginForm"><label>Username<input name="username" value="admin" autocomplete="username" required></label><label>Password<input name="password" type="password" autocomplete="current-password" required></label><button>Sign in →</button></form></section>
+<div id="workspace" hidden>
+<header class="pageHeader"><div><h1 id="pageTitle">Connect your site</h1><p id="pageSubtitle">A few clear steps. Your private keys stay on this appliance.</p></div><span id="roleBadge" class="badge"></span></header>
+<details class="networkBlock" open><summary>Current interface addresses <span id="siteTitle"></span></summary><div id="addresses" class="cards"></div></details>
+<section id="wizardPanel" class="tabPanel"><div class="journey"><ol id="steps" aria-label="Setup progress"></ol><div class="stepCard">
+<span id="stepCounter" class="eyebrow"></span><h2 id="stepTitle"></h2><p id="stepDescription"></p>
+<div id="profileBlock" hidden><form id="setupForm"><label>Node name<input name="label" placeholder="My site" required maxlength="60"></label><label>Transport<select name="transport"><option value="ipsec">IPsec + BGP</option><option value="tls">TLS + BGP</option><option value="ng">TLS + BGP (NG)</option></select></label><p id="transportHint" hidden>Transport matches your trusted Hub invitation.</p><div id="hubSetup"><label>Reachable Hub IPv4<input name="endpoint" placeholder="Public or routed private IPv4"></label><label class="check"><input type="checkbox" name="internet_gateway"> Share Internet with spokes</label><label class="check"><input type="checkbox" name="isolate_spokes" checked> Isolate spokes from each other</label></div><button id="create">Create site →</button></form></div>
+<div id="importBlock" hidden><label class="fileDrop"><strong id="uploadLabel">Choose a JSON file</strong><span>Upload from this computer · no SSH or SCP needed</span><input id="upload" type="file" accept=".json,application/json"></label><div id="peerReview" hidden><pre id="peerIdentity"></pre><label class="check"><input id="trust" type="checkbox"> I received this file from its intended owner through a trusted channel, or verified the fingerprint independently.</label><button id="import" disabled>Confirm and continue →</button></div></div>
+<div id="exportBlock" hidden><label id="recipientLabel">File to download<select id="recipient"></select></label><label class="check"><input id="encrypt" type="checkbox" checked> Encrypt this file with a passphrase</label><div id="passphrases"><label>Exchange passphrase<input id="exportPassword" type="password" autocomplete="new-password" minlength="16" maxlength="256"></label><label>Confirm passphrase<input id="exportConfirm" type="password" autocomplete="new-password"></label></div><button id="download">Download JSON →</button><p class="hint">Send the passphrase separately. Private keys stay on this appliance.</p></div>
+<div id="activateBlock" hidden><div class="successNote">✓ File exchange is complete. This appliance is ready to connect.</div><button id="finishSetup">Activate and open Monitor →</button></div>
+<p id="nextHint" class="nextHint"></p><div class="actions"><button id="newInvitation" class="quiet" hidden>Download another Hub invitation</button><button id="exchangeRequest" class="quiet" hidden>Download a new Spoke request</button><button id="exchangeApproval" class="quiet" hidden>Import a Hub approval</button></div>
+</div></div></section>
+<section id="monitorPanel" class="tabPanel" hidden>
+<div class="metrics"><div class="metric"><span class="eyebrow">CONNECTED SITES</span><strong id="connectedRate">—</strong></div><div class="metric"><span class="eyebrow">DOWNLOAD</span><strong id="downloadRate">—</strong></div><div class="metric"><span class="eyebrow">UPLOAD</span><strong id="uploadRate">—</strong></div></div>
+<div class="panel">
+ <div class="panelTitle"><h2>Overlay traffic</h2><span class="hint">Last hour · Mbit/s · 5-second samples</span></div>
+ <div class="trafficControls">
+  <label>Direction <select id="trafficDirection"><option value="both">Download and upload</option><option value="0">Download</option><option value="1">Upload</option></select></label>
+  <span class="hint">Solid · download &nbsp; Dashed · upload</span>
+ </div>
+ <div id="trafficLegend" class="seriesLegend" aria-label="Toggle chart series"></div>
+ <canvas id="traffic" width="1000" height="240" role="img" aria-label="Overlay download and upload rates over the last hour"></canvas>
+ <p id="trafficWaiting" class="hint">Waiting for overlay traffic samples.</p>
+</div>
+<div class="panel"><div class="panelTitle"><h2>Trusted connections</h2><button id="check" class="quiet">Refresh</button></div><p id="connectionSummary"></p><div id="connections" class="cards"></div><div class="actions"><button id="addSpoke">Connect another Spoke →</button><button data-action="apply" class="secondary">Activate</button><button data-action="disable" class="quiet">Disable</button><button id="topologyButton" class="quiet">View topology</button></div></div>
+</section>
+<section id="topologyPanel" class="tabPanel panel" hidden><h2>Network topology</h2><p id="topologyScope"></p><div id="diagram"></div></section>
+<section id="settingsPanel" class="tabPanel" hidden><div id="policy" class="panel"><h2>Hub sharing controls</h2><p>Change sharing without rebuilding your peer files or interrupting established tunnels.</p><label class="check"><input id="internet" type="checkbox"> Share Internet with spokes</label><label class="check"><input id="spokeAccess" type="checkbox"> Allow spoke-to-spoke connectivity</label><button id="applyPolicy">Apply sharing settings</button><hr><h2>Remove a spoke</h2><label>Approved Spoke<select id="removePeer"></select></label><button id="remove" class="danger">Remove and revoke approval</button><hr><button data-action="refresh" id="refresh" class="secondary">Refresh Hub file</button></div>
+<div id="lan" class="panel"><h2>Spoke LAN / DHCP</h2><form id="lanForm"><label>LAN gateway / prefix<input name="address" placeholder="172.30.212.254/24" required></label><label class="check"><input name="dhcp" type="checkbox"> Serve DHCP on LAN only</label><div class="fieldRow"><label>Pool start<input name="pool_start" placeholder="172.30.212.100"></label><label>Pool end<input name="pool_end" placeholder="172.30.212.199"></label></div><label>Lease hours<input name="lease_hours" type="number" min="1" max="168" value="12"></label><p>Use AP/bridge mode and disable DHCP on your access point. Changing this subnet stops the Spoke until the Hub approves its new request.</p><button>Save LAN settings</button></form></div></section>
+</div></main></div>
+<dialog id="unlockDialog"><form method="dialog"><h2>Unlock exchange file</h2><label>Exchange passphrase<input id="importPassword" type="password" autocomplete="off" required></label><p>This is the file’s passphrase, not your root password.</p><button value="unlock">Unlock file</button><button value="cancel" class="quiet" formnovalidate>Cancel</button></form></dialog>
+</body></html>

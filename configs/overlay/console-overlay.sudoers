@@ -1,0 +1,9 @@
+# Separate, explicitly approved migration; NOT a normal application bundle.
+overlay ALL=(root) NOPASSWD: /usr/local/libexec/console-overlay status
+overlay ALL=(root) NOPASSWD: /usr/local/libexec/console-overlay preflight
+overlay ALL=(root) NOPASSWD: /usr/local/libexec/console-overlay apply
+overlay ALL=(root) NOPASSWD: /usr/local/libexec/console-overlay disable
+overlay ALL=(root) NOPASSWD: /usr/local/libexec/console-overlay guard
+overlay ALL=(root) NOPASSWD: /usr/local/libexec/console-overlay credentials-status
+overlay ALL=(root) NOPASSWD: /usr/local/libexec/console-overlay credentials-csr
+overlay ALL=(root) NOPASSWD: /usr/local/libexec/console-overlay credentials-install

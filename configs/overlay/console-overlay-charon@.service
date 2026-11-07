@@ -1,0 +1,26 @@
+[Unit]
+Description=Parto dedicated OVERLAY IKEv2 daemon (%i)
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=/var/lib/parto-overlay/%i/current/strongswan.conf
+
+[Service]
+Type=notify
+Environment=STRONGSWAN_CONF=/var/lib/parto-overlay/%i/current/strongswan.conf
+ExecStart=/usr/sbin/charon-systemd
+ExecStartPost=/usr/sbin/swanctl --load-all --noprompt --file /var/lib/parto-overlay/%i/current/swanctl.conf --uri unix:///run/console-overlay/%i/charon.vici
+RuntimeDirectory=console-overlay/%i
+RuntimeDirectoryMode=0700
+UMask=0077
+Restart=on-failure
+RestartSec=3
+TimeoutStartSec=20
+TimeoutStopSec=20
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/run/console-overlay/%i
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK

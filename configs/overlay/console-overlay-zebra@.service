@@ -1,0 +1,28 @@
+[Unit]
+Description=Parto dedicated OVERLAY Zebra (%i)
+After=network-online.target
+ConditionPathExists=/var/lib/parto-overlay/%i/current/zebra.conf
+
+[Service]
+Type=simple
+User=frr
+Group=frr
+LoadCredential=zebra.conf:/var/lib/parto-overlay/%i/current/zebra.conf
+ExecStart=/usr/lib/frr/zebra -N csd-%i -P 0 -f ${CREDENTIALS_DIRECTORY}/zebra.conf
+RuntimeDirectory=frr/csd-%i
+RuntimeDirectoryPreserve=yes
+RuntimeDirectoryMode=0750
+UMask=0027
+# FRR 8.4 requests SYS_ADMIN during its startup capability initialization.
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_RAW CAP_SYS_ADMIN
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_RAW CAP_SYS_ADMIN
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=strict
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=20

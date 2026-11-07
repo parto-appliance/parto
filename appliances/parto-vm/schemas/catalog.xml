@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <system systemId="http://schemas.dmtf.org/wbem/wscim/1.0.0/cim-schema/2.19.0+/CIM_ResourceAllocationSettingData.xsd" uri="CIM_ResourceAllocationSettingData.xsd"/>
+  <system systemId="http://schemas.dmtf.org/wbem/wscim/1.0.0/cim-schema/2.19.0+/CIM_VirtualSystemSettingData.xsd" uri="CIM_VirtualSystemSettingData.xsd"/>
+  <system systemId="http://schemas.dmtf.org/wbem/wscim/1/common.xsd" uri="common.xsd"/>
+  <system systemId="http://www.w3.org/2001/xml.xsd" uri="xml.xsd"/>
+</catalog>

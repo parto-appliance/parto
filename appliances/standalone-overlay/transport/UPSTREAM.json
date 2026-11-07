@@ -1,0 +1,14 @@
+{
+  "implementation": "Tor Project Lyrebird obfs4",
+  "repository": "https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/lyrebird",
+  "commit": "362a60bb4e3fa434130ef81a9990d83d6d8eaea5",
+  "module_version": "v0.0.0-20261008205628-362a60bb4e3f",
+  "scope": "Only obfs4 library packages are vendored; no Tor network or daemon dependency",
+  "go_builder": "golang@sha256:23ce71337b726608afb1bc00986e630a05034a87a87ea1fc2cd1ae5cf33387eb",
+  "iat_mode": 0,
+  "license": "Upstream BSD notices and dependency licenses retained in vendor",
+  "dependency_override": {
+    "golang.org/x/crypto": "v0.58.1-0.20261009181718-2f1f834330b2",
+    "reason": "Remove unused OpenPGP module advisory GO-2026-5932; OpenPGP is not imported or vendored"
+  }
+}
